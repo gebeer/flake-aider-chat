@@ -12,8 +12,18 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          (pkgs.python311Full.withPackages (ps: with ps; [ virtualenv pip setuptools wheel ]))
+          (pkgs.python3.withPackages (ps: with ps; [ virtualenv pip setuptools wheel ]))
         ];
+        shellHook = ''
+          if [ ! -d .venv ]; then
+            virtualenv .venv
+          fi
+          source .venv/bin/activate
+          pip install --upgrade aider-chat
+        '';
+        exitHook = ''
+          deactivate
+        '';
       };
     };
 }
