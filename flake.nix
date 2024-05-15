@@ -10,6 +10,8 @@
       forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
     in
     {
+      url = self.sourceInfo.url;
+      
       devShells = forAllSystems (system:
         let pkgs = import nixpkgs { inherit system; };
         in {
