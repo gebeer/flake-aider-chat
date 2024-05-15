@@ -19,7 +19,8 @@
             virtualenv .venv
           fi
           source .venv/bin/activate
-          pip install --upgrade aider-chat
+          pip install --upgrade aider-chat --prefix=$PWD/.venv
+          export PATH=$PWD/.venv/bin:$PATH
         '';
         exitHook = ''
           deactivate
