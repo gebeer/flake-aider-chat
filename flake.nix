@@ -10,12 +10,10 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      devShells = {
-        x86_64-linux = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            (pkgs.python311Full.withPackages (ps: with ps; [ virtualenv pip setuptools wheel ]))
-          ];
-        };
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          (pkgs.python311Full.withPackages (ps: with ps; [ virtualenv pip setuptools wheel ]))
+        ];
       };
     };
 }
